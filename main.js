@@ -2,9 +2,7 @@
 "use strict";
 
 // Set up event handling
-function initEvents(win, doc) {
-    const canvas = doc.getElementById("canvas");
-
+function initEvents(win, doc, canvas) {
     canvas.addEventListener("mouseup", (event) => {
     }, false);
 
@@ -30,6 +28,10 @@ function initEvents(win, doc) {
 }
 
 function main() {
-    initEvents(window, document);
+    const canvas = document.getElementById("canvas");
+    const context = canvas.getContext("2d");
+    const minesweeper = new Minesweeper(context);
+
+    initEvents(window, document, canvas);
 }
 document.addEventListener("DOMContentLoaded", main);
