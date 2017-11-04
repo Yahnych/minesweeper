@@ -1,6 +1,37 @@
 
 "use strict";
 
+class Tile {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.value = 0;
+        this.opened = false;
+        this.flag = false;
+    }
+
+    /* eslint-disable camelcase */
+    draw(ctx, img, scale, forced_empty) {
+        const draw = (sx, sy) => {
+            ctx.drawImage(img, sx, sy, 16, 16,
+                (12 + 16 * this.x) * scale, (55 + 16 * this.y) * scale, 16, 16);
+        };
+
+        const can_be_empty = !this.opened && !this.flag;
+
+        if ((forced_empty && can_be_empty) || (this.opened && this.value === 0)) draw(0, 0);
+        else if (!this.opened && !this.flag) draw(0, 32);
+        else if (this.opened && this.value > 0 && this.value <= 8) {
+            draw(16 + 16 * ((this.value - 1) & 3), 16 * (this.value - 1 >> 2));
+        }
+        else if (this.flag && !this.opened) draw(32, 32);
+        else if (this.opened && this.value === -1 && this.flag) draw(64, 32);
+        else if (this.opened && this.value === -1 && !this.flag) draw(48, 32);
+        else if (this.opened && this.value === 0 && this.flag) draw(0, 16);
+    }
+    /* eslint-enable camelcase */
+}
+
 class Minesweeper {
     constructor(context) {
         this.context = context;
