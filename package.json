@@ -46,7 +46,6 @@
       "prefer-template": "off",
       "no-alert": "off",
       "arrow-parens": "off",
-      "no-return-assign": "off",
       "no-mixed-operators": "off",
       "max-len": "off"
     }
