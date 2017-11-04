@@ -2,8 +2,8 @@
 "use strict";
 
 // Set up event handling
-function initEvents() {
-    const canvas = document.getElementById("canvas");
+function initEvents(win, doc) {
+    const canvas = doc.getElementById("canvas");
 
     canvas.addEventListener("mouseup", (event) => {
     }, false);
@@ -23,13 +23,13 @@ function initEvents() {
         }
     }
 
-    document.onmousedown = blockMenu;
-    document.oncontextmenu = blockMenu; 
+    doc.addEventListener("mousedown", blockMenu);
+    doc.addEventListener("contextmenu", blockMenu);
     // mozilla
-    window.addEventListener("click", blockMenu, false);
+    win.addEventListener("click", blockMenu, false);
 }
 
 function main() {
-    initEvents();
+    initEvents(window, document);
 }
 document.addEventListener("DOMContentLoaded", main);
