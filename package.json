@@ -47,7 +47,8 @@
       "no-alert": "off",
       "arrow-parens": "off",
       "no-mixed-operators": "off",
-      "max-len": "off"
+      "max-len": "off",
+      "function-paren-newline": "off"
     }
   }
 }
