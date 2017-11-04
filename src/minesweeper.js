@@ -18,10 +18,10 @@ class Minesweeper {
         }
 
         Promise.resolve()
-            .then(() => loadImage("tiles.bmp"))
+            .then(() => loadImage("images/tiles.bmp"))
             .then((tiles) => {
                 this.img_tiles = tiles;
-                return loadImage("skin.bmp");
+                return loadImage("images/skin.bmp");
             })
             .then((skin) => {
                 this.img_skin = skin;
