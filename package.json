@@ -45,10 +45,7 @@
       "strict": "off",
       "prefer-template": "off",
       "no-alert": "off",
-      "arrow-parens": "off",
-      "no-mixed-operators": "off",
-      "max-len": "off",
-      "function-paren-newline": "off"
+      "arrow-parens": "off"
     }
   }
 }

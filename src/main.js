@@ -27,6 +27,7 @@ function initEvents(win, doc, canvas) {
     win.addEventListener("click", blockMenu, false);
 }
 
+/* eslint-disable no-undef */
 function main() {
     const canvas = document.getElementById("canvas");
     const context = canvas.getContext("2d");
@@ -35,3 +36,4 @@ function main() {
     initEvents(window, document, canvas);
 }
 document.addEventListener("DOMContentLoaded", main);
+/* eslint-enable no-undef */

@@ -44,6 +44,7 @@ class Minesweeper {
     }
 
     draw() {
+        /* eslint-disable function-paren-newline, no-mixed-operators */
         const draw = (sx, sy, swidth, sheight, dx, dy, dwidth, dheight) =>
             this.context.drawImage(this.img_skin, sx, sy, swidth, sheight,
                 dx * this.scale, dy * this.scale, dwidth * this.scale, dheight * this.scale);
@@ -58,5 +59,6 @@ class Minesweeper {
         draw(20, 64, 8, 8, this.width * 16 + 12, 55, 8, this.height * 16);
         draw(48, 0, 41, 25, 16, 16, 41, 25);
         draw(48, 0, 41, 25, 12 + this.width * 16 - 4 - 41, 16, 41, 25);
+        /* eslint-enable function-paren-newline, no-mixed-operators */
     }
 }
