@@ -30,7 +30,7 @@ class Minesweeper {
     }
 
     newGame(width, height, mines) {
-        const clamp = (value, min, max) => { Math.min(Math.max(value, min), max); };
+        const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 
         this.width = clamp(width, 9, 30);
         this.height = clamp(height, 9, 24);
