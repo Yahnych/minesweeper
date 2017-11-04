@@ -5,6 +5,7 @@ class Minesweeper {
     constructor(context) {
         this.context = context;
         this.setScale(1);
+        this.onsize = () => {};
 
         function loadImage(path) {
             return new Promise((resolve, reject) => {
@@ -40,11 +41,15 @@ class Minesweeper {
         this.width = clamp(width, 9, 30);
         this.height = clamp(height, 9, 24);
         this.mines = clamp(mines, 1, (this.width - 1) * (this.height - 1));
+
+        /* eslint-disable indent */
+        this.onsize(this.width * 16 * this.scale + 20 * this.scale,
+                    this.height * 16 * this.scale + 64 * this.scale);
+        /* eslint-enable indent */
         this.draw();
     }
 
     draw() {
-        /* eslint-disable function-paren-newline, no-mixed-operators */
         const draw = (sx, sy, swidth, sheight, dx, dy, dwidth, dheight) =>
             this.context.drawImage(this.img_skin, sx, sy, swidth, sheight,
                 dx * this.scale, dy * this.scale, dwidth * this.scale, dheight * this.scale);
@@ -59,6 +64,5 @@ class Minesweeper {
         draw(20, 64, 8, 8, this.width * 16 + 12, 55, 8, this.height * 16);
         draw(48, 0, 41, 25, 16, 16, 41, 25);
         draw(48, 0, 41, 25, 12 + this.width * 16 - 4 - 41, 16, 41, 25);
-        /* eslint-enable function-paren-newline, no-mixed-operators */
     }
 }

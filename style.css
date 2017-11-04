@@ -1,0 +1,31 @@
+
+body
+{
+    background: rgb(238, 237, 163);
+    color: #fff;
+    font: normal normal 12px Verdana, Geneva, Arial, Helvetica, sans-serif;
+    margin: 10px;
+    padding: 0
+}
+
+a
+{
+    color: #aabbff;
+    text-decoration: none;
+}
+
+a:hover
+{
+    color: #6677aa;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+canvas
+{
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}

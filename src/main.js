@@ -33,6 +33,11 @@ function main() {
     const context = canvas.getContext("2d");
     const minesweeper = new Minesweeper(context);
 
+    minesweeper.onsize = (width, height) => {
+        canvas.width = width;
+        canvas.height = height;
+    };
+
     initEvents(window, document, canvas);
 }
 document.addEventListener("DOMContentLoaded", main);
