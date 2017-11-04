@@ -17,16 +17,15 @@ function initEvents() {
     function blockMenu(e) {
         if (e.pageX - canvas.offsetLeft > 0 && e.pageY - canvas.offsetTop > 0 &&
             e.pageX < canvas.offsetLeft + canvas.width &&
-            e.pageY < canvas.offsetTop + canvas.height)
-        {
+            e.pageY < canvas.offsetTop + canvas.height) {
             e.returnValue = false;
             e.preventDefault();
         }
     }
-       
+
     document.onmousedown = blockMenu;
     document.oncontextmenu = blockMenu; 
-    //mozilla
+    // mozilla
     window.addEventListener("click", blockMenu, false);
 }
 
