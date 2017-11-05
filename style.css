@@ -1,8 +1,8 @@
 
 body {
     background: rgb(238, 237, 163);
-    color: #fff;
-    font: normal normal 12px Verdana, Geneva, Arial, Helvetica, sans-serif;
+    color: #000;
+    font: normal normal 15px Verdana, Geneva, Arial, Helvetica, sans-serif;
     margin: 10px;
     padding: 0
 }
@@ -26,8 +26,13 @@ canvas {
 }
 
 #options {
-    width: 120px;
+    width: 400px;
     float: left;
+}
+
+td {
+    text-align: center;
+    width: 64px;
 }
 
 span {
@@ -55,7 +60,7 @@ input[type="radio"] + label {
     border-radius: 3px;
     text-shadow: 1px 1px 0 rgba(0,0,0,0);
     display: block;
-    width: 80px;
+    width: 100px;
     text-align: center;
 }
 
@@ -65,4 +70,9 @@ input[type="radio"]:checked + label {
     border: 1px solid #444;
     text-shadow: 1px 1px 0 rgba(0,0,0,0.4);
     color: white;
+}
+
+input[type="text"] {
+    font: normal normal 15px Verdana, Geneva, Arial, Helvetica, sans-serif;
+    text-align: center;
 }

@@ -10,22 +10,54 @@
 </head>
 <body>
     <div id="options">
-        <span>
-            <input id="Beginner" type="radio" name="radios" checked="checked">
-            <label for="Beginner">Beginner</label>
-        </span>
-        <span>
-            <input id="Intermediate" type="radio" name="radios">
-            <label for="Intermediate">Intermediate</label>
-        </span>
-        <span>
-            <input id="Expert" type="radio" name="radios">
-            <label for="Expert">Expert</label>
-        </span>
-        <span>
-            <input id="Custom" type="radio" name="radios">
-            <label for="Custom">Custom</label>
-        </span>
+        <table>
+            <tr>
+                <th></th>
+                <th>Width</th>
+                <th>Height</th>
+                <th>Mines</th>
+            </tr><tr>
+                <td>
+                    <span>
+                        <input id="Beginner" type="radio" name="radios" checked="checked">
+                        <label for="Beginner">Beginner</label>
+                    </span>
+                </td>
+                <td>9</td>
+                <td>9</td>
+                <td>10</td>
+            </tr><tr>
+                <td>
+                    <span>
+                        <input id="Intermediate" type="radio" name="radios">
+                        <label for="Intermediate">Intermediate</label>
+                    </span>
+                </td>
+                <td>16</td>
+                <td>16</td>
+                <td>40</td>
+            </tr><tr>
+                <td>
+                    <span>
+                        <input id="Expert" type="radio" name="radios">
+                        <label for="Expert">Expert</label>
+                    </span>
+                </td>
+                <td>30</td>
+                <td>16</td>
+                <td>99</td>
+            </tr><tr>
+                <td>
+                    <span>
+                        <input id="Custom" type="radio" name="radios">
+                        <label for="Custom">Custom</label>
+                    </span>
+                </td>
+                <td><input type="text" id="width" size="3" value="30"></input></td>
+                <td><input type="text" id="height" size="3" value="24"></input></td>
+                <td><input type="text" id="mines" size="3" value="180"></input></td>
+            </tr>
+        </table>
     </div>
     <canvas id="canvas" width="800" height="600">
         <div style="text-align: center; vertical-align: middle">
