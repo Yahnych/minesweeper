@@ -98,6 +98,41 @@ class Minesweeper {
         this.applySize();
     }
 
+    adjacentTiles(tile, callback) {
+        for (let x = tile.x - 1; x <= tile.x + 1; x++) {
+            for (let y = tile.y - 1; y <= tile.y + 1; y++) {
+                if (x >= 0 && x < this.width && y >= 0 && y < this.height) {
+                    if (x !== tile.x || y !== tile.y) {
+                        callback(this.tiles[x + y * this.width]);
+                    }
+                }
+            }
+        }
+    }
+
+    generate(x, y) {
+        // generate all mines
+        for (let i = 0; i < this.mines; i++) {
+            const ind = rand(this.width * this.height);
+            if (this.tiles[ind].value === -1 || ind === x + y * this.width) {
+                i--;
+            } else this.tiles[ind].value = -1;
+        }
+        // calc value for mineless tiles
+        for (let i = 0; i < this.width; i++) {
+            for (let j = 0; j < this.height; j++) {
+                const ind = i + j * this.width;
+                if (this.tiles[ind].value !== -1) {
+                    let count = 0;
+                    this.adjacentTiles(this.tiles[ind], (tile) => {
+                        if (tile.value === -1) count++;
+                    });
+                    this.tiles[ind].value = count;
+                }
+            }
+        }
+    }
+
     drawMinesLeft() {
         this.drawNumber(this.mines_left, 17);
     }
