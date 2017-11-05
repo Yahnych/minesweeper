@@ -38,7 +38,7 @@ class Minesweeper {
     constructor(context) {
         this.context = context;
         this.scale = 1;
-        this.onsize = () => {};
+        this.onsize = () => { };
 
         function loadImage(path) {
             return new Promise((resolve, reject) => {
@@ -72,7 +72,7 @@ class Minesweeper {
     applySize() {
         /* eslint-disable indent */
         this.onsize(this.width * 16 * this.scale + 24 * this.scale,
-                    this.height * 16 * this.scale + 67 * this.scale);
+            this.height * 16 * this.scale + 67 * this.scale);
         /* eslint-enable indent */
         this.draw();
     }
@@ -117,6 +117,7 @@ class Minesweeper {
 
         this.drawMinesLeft();
         this.drawNumber(314, 12 + this.width * 16 - 4 - 40);
+        this.drawSmile(0);
     }
 
     drawNumber(number, pos) {
@@ -131,5 +132,9 @@ class Minesweeper {
             this.drawRect(94 + e * 13, 0, 13, 23, posx, 17, 13, 23);
             posx += 13;
         });
+    }
+
+    drawSmile(state) {
+        this.drawRect(53 + 26 * state, 26, 24, 24, 12 + this.width * 8 - 13, 16, 24, 24);
     }
 }
