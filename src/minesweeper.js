@@ -210,6 +210,19 @@ class Minesweeper {
             }
             break;
         case 2:
+            if (this.game_over) return;
+            if (this.focus) {
+                if (this.focus.isClickable()) {
+                    this.focus.flag = true;
+                    this.mines_left--;
+                } else if (this.focus.flag) {
+                    this.focus.flag = false;
+                    this.mines_left++;
+                }
+                this.drawTile(this.focus, false);
+                this.drawMinesLeft();
+                this.drawSmile(2);
+            }
             break;
         default:
             break;
@@ -237,6 +250,11 @@ class Minesweeper {
                 this.drawSmile(0);
             }
             break;
+        case 2:
+            if (this.focus) {
+                this.drawSmile(0);
+            }
+            break;
         default:
             break;
         }
@@ -245,7 +263,7 @@ class Minesweeper {
     mouseMove(x, y) {
         if (this.left_down) {
             if (this.isSmile(x, y)) this.drawSmile(1);
-            else this.drawSmile(0);
+            else this.drawSmile(2);
         }
 
         if (this.game_over) return;
