@@ -40,6 +40,10 @@ function initEvents(win, doc, canvas, minesweeper) {
         document.getElementById("height").value = minesweeper.height;
         document.getElementById("mines").value = minesweeper.mines;
     };
+
+    document.getElementById("Zoom100").onclick = () => minesweeper.setScale(1);
+    document.getElementById("Zoom150").onclick = () => minesweeper.setScale(1.5);
+    document.getElementById("Zoom200").onclick = () => minesweeper.setScale(2);
 }
 
 function main() {

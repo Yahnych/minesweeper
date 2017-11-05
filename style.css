@@ -75,4 +75,12 @@ input[type="radio"]:checked + label {
 input[type="text"] {
     font: normal normal 15px Verdana, Geneva, Arial, Helvetica, sans-serif;
     text-align: center;
+    width: 55px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    height: 24px;
+}
+
+#Zoom100 + label, #Zoom150 + label, #Zoom200 + label {
+    width: 40px;
 }

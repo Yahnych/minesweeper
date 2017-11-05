@@ -16,7 +16,7 @@ class Tile {
     draw(ctx, img, scale, forced_empty) {
         const draw = (sx, sy) => {
             ctx.drawImage(img, sx, sy, 16, 16,
-                (12 + 16 * this.x) * scale, (55 + 16 * this.y) * scale, 16, 16);
+                (12 + 16 * this.x) * scale, (55 + 16 * this.y) * scale, 16 * scale, 16 * scale);
         };
 
         const can_be_empty = !this.opened && !this.flag;
@@ -37,9 +37,8 @@ class Tile {
 class Minesweeper {
     constructor(context) {
         this.context = context;
-        this.setScale(1);
+        this.scale = 1;
         this.onsize = () => {};
-        this.tiles = [];
 
         function loadImage(path) {
             return new Promise((resolve, reject) => {
@@ -67,6 +66,15 @@ class Minesweeper {
 
     setScale(scale) {
         this.scale = scale;
+        this.applySize();
+    }
+
+    applySize() {
+        /* eslint-disable indent */
+        this.onsize(this.width * 16 * this.scale + 20 * this.scale,
+                    this.height * 16 * this.scale + 64 * this.scale);
+        /* eslint-enable indent */
+        this.draw();
     }
 
     newGame(width, height, mines) {
@@ -83,11 +91,7 @@ class Minesweeper {
             this.tiles[i] = new Tile(x, y);
         }
 
-        /* eslint-disable indent */
-        this.onsize(this.width * 16 * this.scale + 20 * this.scale,
-                    this.height * 16 * this.scale + 64 * this.scale);
-        /* eslint-enable indent */
-        this.draw();
+        this.applySize();
     }
 
     drawRect(sx, sy, swidth, sheight, dx, dy, dwidth, dheight) {
