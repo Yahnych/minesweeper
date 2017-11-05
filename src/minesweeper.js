@@ -282,7 +282,7 @@ class Minesweeper {
             this.middle_down = true;
             if (this.game_over) return;
             if (this.focus) {
-                this.clickMiddle(true);
+                this.clickMiddle(true, false);
                 this.drawSmile(2);
             }
             break;
@@ -327,8 +327,8 @@ class Minesweeper {
             this.middle_down = false;
             if (this.game_over) return;
             if (this.focus) {
-                this.clickMiddle(false);
                 this.drawSmile(0);
+                this.clickMiddle(false, this.started);
             }
             break;
         case 2:
@@ -351,7 +351,7 @@ class Minesweeper {
 
         if (this.focus) {
             if (this.focus.isClickable()) this.drawTile(this.focus, false);
-            if (this.middle_down) this.clickMiddle(false);
+            if (this.middle_down) this.clickMiddle(false, false);
         }
 
         const indX = x / this.scale - 12 >> 4;
@@ -361,14 +361,27 @@ class Minesweeper {
             if (this.focus.isClickable()) {
                 this.drawTile(this.focus, this.left_down);
             }
-            if (this.middle_down) this.clickMiddle(true);
+            if (this.middle_down) this.clickMiddle(true, false);
         } else this.focus = null;
     }
 
-    clickMiddle(forcedEmpty) {
+    clickMiddle(forcedEmpty, open) {
         if (this.focus.isClickable()) this.drawTile(this.focus, forcedEmpty);
         this.adjacentTiles(this.focus, (tile) => {
             if (tile.isClickable()) this.drawTile(tile, forcedEmpty);
         });
+
+        if (!open) return;
+
+        const adjacentMines = this.focus.value;
+        let countFlags = 0;
+
+        this.adjacentTiles(this.focus, (tile) => {
+            if (tile.flag) countFlags++;
+        });
+
+        if (countFlags === adjacentMines) {
+            this.adjacentTiles(this.focus, (tile) => this.openTile(tile));
+        }
     }
 }
