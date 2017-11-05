@@ -11,6 +11,7 @@ class Tile {
         this.value = 0;
         this.opened = false;
         this.flag = false;
+        this.failed = false;
     }
 
     isClickable() {
@@ -25,13 +26,13 @@ class Tile {
 
         if ((forcedEmpty && this.isClickable()) || (this.opened && this.value === 0)) draw(0, 0);
         else if (!this.opened && !this.flag) draw(0, 32);
-        else if (this.opened && this.value > 0 && this.value <= 8) {
+        else if (this.opened && this.value > 0 && this.value <= 8 && !this.flag) {
             draw(16 + 16 * ((this.value - 1) & 3), 16 * (this.value - 1 >> 2));
         }
         else if (this.flag && !this.opened) draw(32, 32);
-        else if (this.opened && this.value === -1 && this.flag) draw(64, 32);
+        else if (this.failed) draw(64, 32);
         else if (this.opened && this.value === -1 && !this.flag) draw(48, 32);
-        else if (this.opened && this.value === 0 && this.flag) draw(0, 16);
+        else if (this.opened && this.value !== -1 && this.flag) draw(0, 16);
     }
 }
 
@@ -168,12 +169,12 @@ class Minesweeper {
 
         /* eslint-disable no-param-reassign */
         tile.opened = true;
-        /* eslint-enable no-param-reassign */
         this.empty_tiles++;
         this.drawTile(tile, false);
         if (tile.value > 0 && tile.value <= 8) {
             // this.win();
         } else if (tile.value === -1) {
+            tile.failed = true;
             this.gameOver();
         } else if (tile.value === 0) {
             // this.win();
@@ -181,6 +182,7 @@ class Minesweeper {
                 this.openTile(next);
             });
         }
+        /* eslint-enable no-param-reassign */
     }
 
     drawMinesLeft() {
