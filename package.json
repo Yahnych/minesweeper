@@ -25,30 +25,5 @@
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.4.0"
-  },
-  "eslintConfig": {
-    "parser": "babel-eslint",
-    "extends": "airbnb",
-    "rules": {
-      "quotes": [
-        "error",
-        "double"
-      ],
-      "indent": [
-        "error",
-        4
-      ],
-      "semi": [
-        "error",
-        "always"
-      ],
-      "strict": "off",
-      "prefer-template": "off",
-      "no-alert": "off",
-      "arrow-parens": "off",
-      "no-mixed-operators": "off",
-      "function-paren-newline": "off",
-      "no-bitwise": "off"
-    }
   }
 }
