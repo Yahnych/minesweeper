@@ -2,7 +2,7 @@
 "use strict";
 
 // Set up event handling
-function initEvents(win, doc, canvas) {
+function initEvents(win, doc, canvas, minesweeper) {
     canvas.addEventListener("mouseup", (event) => {
     }, false);
 
@@ -25,6 +25,21 @@ function initEvents(win, doc, canvas) {
     doc.addEventListener("contextmenu", blockMenu);
     // mozilla
     win.addEventListener("click", blockMenu, false);
+
+    document.getElementById("Beginner").onclick = () => minesweeper.newGame(9, 9, 10);
+    document.getElementById("Intermediate").onclick = () => minesweeper.newGame(16, 16, 40);
+    document.getElementById("Expert").onclick = () => minesweeper.newGame(30, 16, 99);
+    document.getElementById("Custom").onclick = () => {
+        const width = parseInt(document.getElementById("width").value, 10);
+        const height = parseInt(document.getElementById("height").value, 10);
+        const mines = parseInt(document.getElementById("mines").value, 10);
+
+        minesweeper.newGame(width, height, mines);
+
+        document.getElementById("width").value = minesweeper.width;
+        document.getElementById("height").value = minesweeper.height;
+        document.getElementById("mines").value = minesweeper.mines;
+    };
 }
 
 function main() {
@@ -37,6 +52,6 @@ function main() {
         canvas.height = height;
     };
 
-    initEvents(window, document, canvas);
+    initEvents(window, document, canvas, minesweeper);
 }
 document.addEventListener("DOMContentLoaded", main);
