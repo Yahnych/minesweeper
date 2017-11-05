@@ -79,10 +79,12 @@ class Minesweeper {
     }
 
     newGame(width, height, mines) {
+        this.stopGame();
         this.left_down = false;
         this.middle_down = false;
         this.focus = null;
         this.game_over = false;
+        this.started = false;
         this.width = clamp(width, 9, 30);
         this.height = clamp(height, 9, 24);
         this.mines = clamp(mines, 1, (this.width - 1) * (this.height - 1));
@@ -133,8 +135,31 @@ class Minesweeper {
         }
     }
 
+    startGame() {
+        this.generate(this.focus.x, this.focus.y);
+        this.startTime = Date.now();
+        this.started = true;
+
+        this.timerId = setInterval(() => this.drawTime(), 100);
+    }
+
+    stopGame() {
+        if (this.timerId) clearInterval(this.timerId);
+        this.timerId = 0;
+    }
+
+    openTile(tile) {
+
+    }
+
     drawMinesLeft() {
         this.drawNumber(this.mines_left, 17);
+    }
+
+    drawTime() {
+        const time = this.started ? Date.now() - this.startTime : 0;
+        const sec = time / 1000 | 0;
+        this.drawNumber(sec, 12 + this.width * 16 - 4 - 40);
     }
 
     drawRect(sx, sy, swidth, sheight, dx, dy, dwidth, dheight) {
@@ -161,7 +186,7 @@ class Minesweeper {
         this.tiles.forEach((tile) => this.drawTile(tile, false));
 
         this.drawMinesLeft();
-        this.drawNumber(314, 12 + this.width * 16 - 4 - 40);
+        this.drawTime();
         this.drawSmile(0);
     }
 
@@ -240,6 +265,12 @@ class Minesweeper {
             if (this.game_over) return;
             if (this.focus) {
                 this.drawSmile(0);
+                if (!this.started) {
+                    this.startGame();
+                }
+                if (this.focus.isClickable()) {
+                    this.openTile(this.focus);
+                }
             }
             break;
         case 1:
