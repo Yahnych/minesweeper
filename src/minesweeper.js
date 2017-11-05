@@ -149,6 +149,20 @@ class Minesweeper {
         this.timerId = 0;
     }
 
+    gameOver() {
+        this.stopGame();
+        this.tiles.forEach((tile) => {
+            if ((tile.value === -1) !== tile.flag) {
+                /* eslint-disable no-param-reassign */
+                tile.opened = true;
+                /* eslint-enable no-param-reassign */
+                this.drawTile(tile, false);
+            }
+        });
+        this.game_over = true;
+        this.drawSmile(3);
+    }
+
     openTile(tile) {
         if (!tile.isClickable()) return;
 
@@ -160,7 +174,7 @@ class Minesweeper {
         if (tile.value > 0 && tile.value <= 8) {
             // this.win();
         } else if (tile.value === -1) {
-            // this.game_over();
+            this.gameOver();
         } else if (tile.value === 0) {
             // this.win();
             this.adjacentTiles(tile, (next) => {
@@ -297,6 +311,7 @@ class Minesweeper {
             }
             break;
         case 2:
+            if (this.game_over) return;
             if (this.focus) {
                 this.drawSmile(0);
             }
@@ -309,6 +324,7 @@ class Minesweeper {
     mouseMove(x, y) {
         if (this.left_down) {
             if (this.isSmile(x, y)) this.drawSmile(1);
+            else if (this.game_over) this.drawSmile(3);
             else this.drawSmile(2);
         }
 
