@@ -164,6 +164,25 @@ class Minesweeper {
         this.drawSmile(3);
     }
 
+    checkWin() {
+        if (this.empty_tiles === this.width * this.height - this.mines) {
+            this.stopGame();
+            this.tiles.forEach((tile) => {
+                if (tile.value === -1 && !tile.flag) {
+                    /* eslint-disable no-param-reassign */
+                    tile.flag = true;
+                    /* eslint-enable no-param-reassign */
+                    this.drawTile(tile, false);
+                }
+            });
+
+            this.mines_left = 0;
+            this.drawMinesLeft();
+            this.game_over = true;
+            this.drawSmile(4);
+        }
+    }
+
     openTile(tile) {
         if (!tile.isClickable()) return;
 
@@ -172,12 +191,12 @@ class Minesweeper {
         this.empty_tiles++;
         this.drawTile(tile, false);
         if (tile.value > 0 && tile.value <= 8) {
-            // this.win();
+            this.checkWin();
         } else if (tile.value === -1) {
             tile.failed = true;
             this.gameOver();
         } else if (tile.value === 0) {
-            // this.win();
+            this.checkWin();
             this.adjacentTiles(tile, (next) => {
                 this.openTile(next);
             });
@@ -324,10 +343,8 @@ class Minesweeper {
     }
 
     mouseMove(x, y) {
-        if (this.left_down) {
+        if (this.left_down && !this.game_over) {
             if (this.isSmile(x, y)) this.drawSmile(1);
-            else if (this.game_over) this.drawSmile(3);
-            else this.drawSmile(2);
         }
 
         if (this.game_over) return;
