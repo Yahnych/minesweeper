@@ -2,6 +2,7 @@
 "use strict";
 
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+const rand = (n) => Math.random() * n | 0;
 
 class Tile {
     constructor(x, y) {
@@ -78,6 +79,8 @@ class Minesweeper {
     }
 
     newGame(width, height, mines) {
+        this.left_down = false;
+        this.middle_down = false;
         this.width = clamp(width, 9, 30);
         this.height = clamp(height, 9, 24);
         this.mines = clamp(mines, 1, (this.width - 1) * (this.height - 1));
@@ -135,6 +138,55 @@ class Minesweeper {
     }
 
     drawSmile(state) {
-        this.drawRect(53 + 26 * state, 26, 24, 24, 12 + this.width * 8 - 13, 16, 24, 24);
+        this.drawRect(52 + 26 * state, 25, 26, 26, this.width * 8 - 1, 16, 26, 26);
+    }
+
+    isSmile(x, y) {
+        return x > (this.width * 8 - 1) * this.scale &&
+               x < (this.width * 8 - 1 + 26) * this.scale &&
+               y > 16 * this.scale &&
+               y < (16 + 26) * this.scale;
+    }
+
+    mouseDown(x, y, button) {
+        switch (button) {
+        case 0:
+            this.left_down = true;
+            if (this.isSmile(x, y)) this.drawSmile(1);
+            break;
+        case 1:
+            this.middle_down = true;
+            break;
+        case 2:
+            break;
+        default:
+            throw new Error("Unknown button " + button);
+        }
+    }
+
+    mouseUp(x, y, button) {
+        switch (button) {
+        case 0:
+            this.left_down = false;
+            if (this.isSmile(x, y)) {
+                this.drawSmile(0);
+                this.newGame(this.width, this.height, this.mines);
+            }
+            break;
+        case 1:
+            this.middle_down = false;
+            break;
+        case 2:
+            break;
+        default:
+            throw new Error("Unknown button " + button);
+        }
+    }
+
+    mouseMove(x, y) {
+        if (this.left_down) {
+            if (this.isSmile(x, y)) this.drawSmile(1);
+            else this.drawSmile(0);
+        }
     }
 }

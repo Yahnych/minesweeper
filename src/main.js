@@ -4,12 +4,18 @@
 // Set up event handling
 function initEvents(win, doc, canvas, minesweeper) {
     canvas.addEventListener("mouseup", (event) => {
+        const { button, pageX, pageY } = event;
+        minesweeper.mouseUp(pageX - canvas.offsetLeft, pageY - canvas.offsetTop, button);
     }, false);
 
     canvas.addEventListener("mousedown", (event) => {
+        const { button, pageX, pageY } = event;
+        minesweeper.mouseDown(pageX - canvas.offsetLeft, pageY - canvas.offsetTop, button);
     }, false);
 
     canvas.addEventListener("mousemove", (event) => {
+        const { pageX, pageY } = event;
+        minesweeper.mouseMove(pageX - canvas.offsetLeft, pageY - canvas.offsetTop);
     }, false);
 
     function blockMenu(e) {
