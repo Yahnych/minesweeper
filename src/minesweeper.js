@@ -37,6 +37,7 @@ class Minesweeper {
         this.context = context;
         this.setScale(1);
         this.onsize = () => {};
+        this.tiles = [];
 
         function loadImage(path) {
             return new Promise((resolve, reject) => {
@@ -73,6 +74,13 @@ class Minesweeper {
         this.height = clamp(height, 9, 24);
         this.mines = clamp(mines, 1, (this.width - 1) * (this.height - 1));
 
+        this.tiles = new Array(this.width * this.height);
+        for (let i = 0; i < this.tiles.length; i++) {
+            const x = i % this.width | 0;
+            const y = i / this.width | 0;
+            this.tiles[i] = new Tile(x, y);
+        }
+
         /* eslint-disable indent */
         this.onsize(this.width * 16 * this.scale + 20 * this.scale,
                     this.height * 16 * this.scale + 64 * this.scale);
@@ -95,5 +103,9 @@ class Minesweeper {
         draw(20, 64, 8, 8, this.width * 16 + 12, 55, 8, this.height * 16);
         draw(48, 0, 41, 25, 16, 16, 41, 25);
         draw(48, 0, 41, 25, 12 + this.width * 16 - 4 - 41, 16, 41, 25);
+
+        this.tiles.forEach((tile) => {
+            tile.draw(this.context, this.img_tiles, this.scale, false);
+        });
     }
 }
