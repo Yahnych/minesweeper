@@ -71,8 +71,8 @@ class Minesweeper {
 
     applySize() {
         /* eslint-disable indent */
-        this.onsize(this.width * 16 * this.scale + 20 * this.scale,
-                    this.height * 16 * this.scale + 64 * this.scale);
+        this.onsize(this.width * 16 * this.scale + 24 * this.scale,
+                    this.height * 16 * this.scale + 67 * this.scale);
         /* eslint-enable indent */
         this.draw();
     }
@@ -101,15 +101,15 @@ class Minesweeper {
 
     draw() {
         this.drawRect(0, 0, 12, 55, 0, 0, 12, 55);
-        this.drawRect(40, 0, 8, 55, this.width * 16 + 12, 0, 8, 55);
+        this.drawRect(40, 0, 12, 55, this.width * 16 + 12, 0, 12, 55);
         this.drawRect(12, 0, 20, 55, 12, 0, this.width * 16, 55);
-        this.drawRect(0, 72, 12, 8, 0, 55 + this.height * 16, 12, 8);
-        this.drawRect(20, 72, 8, 8, this.width * 16 + 12, 55 + this.height * 16, 8, 8);
+        this.drawRect(0, 72, 12, 12, 0, 55 + this.height * 16, 12, 12);
+        this.drawRect(20, 72, 12, 12, this.width * 16 + 12, 55 + this.height * 16, 12, 12);
         this.drawRect(0, 56, 12, 10, 0, 55, 12, this.height * 16);
-        this.drawRect(12, 72, 8, 8, 12, 55 + this.height * 16, this.width * 16, 8);
-        this.drawRect(20, 64, 8, 8, this.width * 16 + 12, 55, 8, this.height * 16);
-        this.drawRect(48, 0, 41, 25, 16, 16, 41, 25);
-        this.drawRect(48, 0, 41, 25, 12 + this.width * 16 - 4 - 41, 16, 41, 25);
+        this.drawRect(12, 72, 8, 12, 12, 55 + this.height * 16, this.width * 16, 12);
+        this.drawRect(20, 64, 12, 8, this.width * 16 + 12, 55, 12, this.height * 16);
+        this.drawRect(52, 0, 41, 25, 16, 16, 41, 25);
+        this.drawRect(52, 0, 41, 25, 12 + this.width * 16 - 4 - 41, 16, 41, 25);
 
         this.tiles.forEach((tile) => {
             tile.draw(this.context, this.img_tiles, this.scale, false);
@@ -128,7 +128,7 @@ class Minesweeper {
 
         let posx = pos;
         elem.forEach((e) => {
-            this.drawRect(89 + e * 13, 0, 13, 23, posx, 17, 13, 23);
+            this.drawRect(94 + e * 13, 0, 13, 23, posx, 17, 13, 23);
             posx += 13;
         });
     }
