@@ -89,6 +89,7 @@ class Minesweeper {
         this.height = clamp(height, 9, 24);
         this.mines = clamp(mines, 1, (this.width - 1) * (this.height - 1));
         this.mines_left = this.mines;
+        this.empty_tiles = 0;
 
         this.tiles = new Array(this.width * this.height);
         for (let i = 0; i < this.tiles.length; i++) {
@@ -149,7 +150,23 @@ class Minesweeper {
     }
 
     openTile(tile) {
+        if (!tile.isClickable()) return;
 
+        /* eslint-disable no-param-reassign */
+        tile.opened = true;
+        /* eslint-enable no-param-reassign */
+        this.empty_tiles++;
+        this.drawTile(tile, false);
+        if (tile.value > 0 && tile.value <= 8) {
+            // this.win();
+        } else if (tile.value === -1) {
+            // this.game_over();
+        } else if (tile.value === 0) {
+            // this.win();
+            this.adjacentTiles(tile, (next) => {
+                this.openTile(next);
+            });
+        }
     }
 
     drawMinesLeft() {
@@ -268,9 +285,7 @@ class Minesweeper {
                 if (!this.started) {
                     this.startGame();
                 }
-                if (this.focus.isClickable()) {
-                    this.openTile(this.focus);
-                }
+                this.openTile(this.focus);
             }
             break;
         case 1:
